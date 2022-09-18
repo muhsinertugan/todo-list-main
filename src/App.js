@@ -1,4 +1,6 @@
 import Header from './components/Header';
+import { useCallback } from 'react';
+
 import List from './components/List-element';
 import Footer from './components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +15,7 @@ function App() {
 		dispatch(fetchTodos());
 	}, []);
 
-	useEffect(() => {
+	useCallback(() => {
 		dispatch(addToDB());
 	}, [todos]);
 
