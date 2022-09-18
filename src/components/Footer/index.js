@@ -1,16 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import {
-	displayTodos,
-	clearCompleted,
-} from '../../redux/reducers/filtersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { displayTodos, clearCompleted } from '../../redux/reducers/todosSlice';
 
 function Footer() {
 	const dispatch = useDispatch();
+	const todoCount = useSelector((state) => state.todos);
 
 	return (
 		<footer className='footer'>
-			{/* <span className='todo-count'>{`${activeTodo.length} items left`}</span> */}
+			{/* <span className='todo-count'>{`${
+				todoCount.map((item) => item.isChenked === true).length
+			} items left`}</span> */}
 
 			<ul className='filters'>
 				<li>
@@ -54,13 +54,17 @@ function Footer() {
 				</li>
 			</ul>
 
-			<button
+			{/* <button
 				className='clear-completed'
-
-				// hidden={completedTodo.length === 0}
-			>
+				onClick={() => {
+					dispatch(clearCompleted());
+				}}
+				hidden={
+					todoCount.todoItems.filter((item) => item.isChecked)
+						.length === 0
+				}>
 				Clear completed
-			</button>
+			</button> */}
 		</footer>
 	);
 }

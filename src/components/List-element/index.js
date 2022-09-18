@@ -1,6 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { isChecked } from '../../redux/reducers/todosSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	isChecked,
+	editTodo,
+	deleteTodo,
+} from '../../redux/reducers/todosSlice';
 
 function List({ todoElement, index }) {
 	const dispatch = useDispatch();
@@ -19,14 +23,27 @@ function List({ todoElement, index }) {
 						);
 					}}
 					checked={todoElement.isChecked}
-					value={todoElement.id}
+					value={todoElement.todoId}
 				/>
 				<input
-					name={todoElement.id}
+					onChange={(event) => {
+						dispatch(
+							editTodo({
+								id: event.target.id,
+								value: event.target.value,
+							})
+						);
+					}}
+					id={todoElement.todoId}
 					className='list-item'
 					defaultValue={todoElement.todo}
 				/>
-				<button className='destroy'></button>
+
+				<button
+					className='destroy'
+					onClick={() => {
+						dispatch(deleteTodo(todoElement.todoId));
+					}}></button>
 			</div>
 		</li>
 	);

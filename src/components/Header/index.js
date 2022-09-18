@@ -1,38 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, newTodo, checkAll } from '../../redux/reducers/todosSlice';
+import {
+	addTodo,
+	newTodo,
+	checkAll,
+	disableButtons,
+	addToDB,
+} from '../../redux/reducers/todosSlice';
 
 function Header() {
-	// const initialValue = { todo: '', isChecked: false, id: '' };
-	// const [newTodo, setNewTodo] = useState(initialValue);
-
-	// const newTodoItem = (event) => {
-	// 	const { name, value, checked } = event.target;
-
-	// 	setNewTodo({
-	// 		[name]: value,
-	// 		isChecked: checked,
-	// 		id: `li-id: ${Math.random()}`,
-	// 	});
-	// };
-
-	// const addNewTodo = (event) => {
-	// 	event.preventDefault();
-	// 	setNewTodo(initialValue);
-	// 	newTodo.todo !== '' && setTodo([...todo, newTodo]);
-	// };
-
 	const dispatch = useDispatch();
+	const todo = useSelector((state) => state.todos.newTodoItem.todo);
 
 	return (
 		<header className='header'>
 			<h1 className='app-title'>todos</h1>
 			<form className='main'>
-				<input
+				{/* <input
 					className='toggle-all'
 					type='checkbox'
 					onClick={() => dispatch(checkAll())}
 				/>
-				<label htmlFor='toggle-all'> Mark all as complete </label>
+				<label htmlFor='toggle-all'> Mark all as complete </label> */}
+
 				<input
 					onChange={(event) =>
 						dispatch(
@@ -44,6 +33,7 @@ function Header() {
 					name='todo'
 					className='new-todo'
 					placeholder='What needs to be done?'
+					value={todo}
 					autoFocus
 				/>
 				<button
@@ -52,7 +42,7 @@ function Header() {
 						event.preventDefault();
 						dispatch(
 							addTodo({
-								id: Math.random().toString(),
+								id: Date.now(),
 							})
 						);
 					}}></button>
